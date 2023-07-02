@@ -8,7 +8,8 @@ Client::Client(QWidget *parent)
     , ui(new Ui::Client)
 {
     ui->setupUi(this);
-//    QTimer::singleShot(2000, this, SLOT(setLable("some")));
+//    QTimer::singleShot(1, this, SLOT(setConnectionCount("some")));
+    setConnectionCount("some");
 
     QList<int> connNum;
     connNum.append(1);
@@ -24,11 +25,11 @@ Client::Client(QWidget *parent)
     state.append(true);
     state.append(false);
     state.append(true);
-    ConnectionModel *model = new ConnectionModel(this);
+    table = new ConnectionModel(this);
 
-    model->populateData(connNum, LastData, state);
+    table->populateData(connNum, LastData, state);
 
-    ui->tableView->setModel(model);
+    ui->tableView->setModel(table);
 
     ui->tableView->horizontalHeader()->setVisible(true);
     ui->tableView->show();
@@ -43,6 +44,6 @@ Client::~Client()
 
 
 
-void Client::setLable(std::string newLable) {
+void Client::setConnectionCount(std::string newLable) {
     ui->totalCountLbl->setText("some text");
 }

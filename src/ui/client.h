@@ -2,6 +2,7 @@
 #define CLIENT_H
 
 #include <QMainWindow>
+#include "conncetionmodel.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Client; }
@@ -12,13 +13,14 @@ class Client : public QMainWindow
     Q_OBJECT
 
 public slots:
-    void setLable(std::string);
+    void setConnectionCount(std::string);
 public:
     Client(QWidget *parent = nullptr);
     ~Client();
 
 private:
     Ui::Client *ui;
+    ConnectionModel* table{nullptr};
 };
 
 
