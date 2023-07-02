@@ -1,16 +1,13 @@
 #include "client.h"
 #include "./ui_client.h"
-#include <qtimer.h>
 #include "conncetionmodel.h"
+#include <qtimer.h>
 
 Client::Client(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::Client)
 {
     ui->setupUi(this);
-//    QTimer::singleShot(1, this, SLOT(setConnectionCount("some")));
-    setConnectionCount("some");
-
     QList<int> connNum;
     connNum.append(1);
     connNum.append(2);
@@ -33,12 +30,12 @@ Client::Client(QWidget *parent)
 
     ui->tableView->horizontalHeader()->setVisible(true);
     ui->tableView->show();
-
-
+    serv = new Server(16384);
 }
 
 Client::~Client()
 {
+    delete serv;
     delete ui;
 }
 

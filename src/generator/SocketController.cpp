@@ -40,13 +40,17 @@ void SocketController::threadInit(int sockFd) {
     if (res < 0)
       return ;
     while (started.load(std::memory_order_relaxed)) {
-      auto data = std::to_string(random() % 10000);
-      auto sc = send(sockFd, data.data(), data.size() - 1 , MSG_NOSIGNAL);
-      if (sc == -1 ) {
-        close(sockFd);
-        std::cout << "Error on sending message to sockFd: " << sockFd << std::endl;
-        return;
+      auto data = std::to_string(random());
+      data.resize(6);
+      auto sc = send(sockFd, data.data(), data.size() + 1, MSG_NOSIGNAL);
+      if (sc == -1) {
+      shutdown(sockFd, SHUT_RDWR);
+      close(sockFd);
+      std::cout << "Error on sending message to sockFd: " << sockFd
+                << std::endl;
+      return;
       }
+      std::this_thread::sleep_for(std::chrono::microseconds(500));
     }
 
     if (!started.load(std::memory_order_relaxed) || terminate.load(std::memory_order_relaxed))
