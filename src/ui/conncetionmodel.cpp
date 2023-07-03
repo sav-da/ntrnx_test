@@ -1,17 +1,18 @@
 #include "conncetionmodel.h"
 
-ConnectionModel::ConnectionModel(QObject *parent) : QAbstractTableModel(parent)
-{
-}
+ConnectionModel::ConnectionModel(QObject *parent)
+    : QAbstractTableModel(parent) {}
 // Create a method to populate the model with data:
-void ConnectionModel::populateData(const QList<int> &connNumber,const QList<QString> &lastD, const QList<bool> &state)
-{
-    connectNum.clear();
-    connectNum = connNumber;
-    lastData.clear();
-    lastData = lastD;
-    connected.clear();
-    connected = state;
+void ConnectionModel::populateData(const QVector<int> &connNumber,
+                                   const QVector<QString> &lastD,
+                                   const QVector<bool> &state) {
+  connectNum.clear();
+  connectNum = QList<int>::fromVector(connNumber);
+  lastData.clear();
+  lastData = QList<QString>::fromVector(lastD);
+  connected.clear();
+  connected = QList<bool>::fromVector(state);
+  resetInternalData();
 }
 
 int ConnectionModel::rowCount(const QModelIndex &parent) const

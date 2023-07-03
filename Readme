@@ -1,0 +1,1 @@
+For test compile with `cmake -B build  && cmake --build build -- -j10` start ./build/ntrnx_test and start generator with `generator 127.0.0.1 10 32768`

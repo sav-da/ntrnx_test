@@ -9,18 +9,18 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets Network)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Network)
 
 file(GLOB_RECURSE CLIENT_SOURCES
         "src/ui/*"
-)
+        )
 
-if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
+if (${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(ntrnx_test
-        MANUAL_FINALIZATION
-        ${CLIENT_SOURCES}
-    )
+            MANUAL_FINALIZATION
+            ${CLIENT_SOURCES}
+            )
 
 else()
     add_executable(ntrnx_test
@@ -28,7 +28,7 @@ else()
     )
 endif()
 
-target_link_libraries(ntrnx_test PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(ntrnx_test PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network)
 
 set_target_properties(ntrnx_test PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
