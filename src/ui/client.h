@@ -15,16 +15,24 @@ class Client : public QMainWindow {
   Q_OBJECT
 
 public slots:
-  void setConnectionCount(std::string);
+  void incConnectionCount();
+  void decConnectionCount();
+  void updateTable(const int &connNumber, const QString &lastD,
+                   const bool &actState);
 
 public:
   explicit Client(QWidget *parent = nullptr);
   ~Client() override;
 
 private:
+  int connCount{};
   Ui::Client *ui;
   ConnectionModel *table{nullptr};
-  Server *serv;
+  Server *serv{new Server(this)};
+
+  QVector<bool> state{};
+  QVector<QString> LastData{};
+  QVector<int> connNum{};
 };
 
 
